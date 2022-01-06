@@ -10,3 +10,8 @@ pom.xml.asc
 .hgignore
 .hg/
 .cpcache/
+.clj-kondo
+.calva
+.lsp
+.shadow-cljs
+resources/public/js

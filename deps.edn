@@ -1,7 +1,7 @@
-{:deps    {org.clojure/clojure         {:mvn/version "1.10.3"}
+{:paths   ["src" "test"]
+ :deps    {org.clojure/clojure         {:mvn/version "1.10.3"}
            http-kit/http-kit           {:mvn/version "2.5.3"}
            com.cognitect/transit-clj   {:mvn/version "1.0.324"}}
- :paths   ["src"]
  :aliases {:test         {:extra-deps {lambdaisland/kaocha {:mvn/version "1.0.861"}}
                           :main-opts  ["-m" "kaocha.runner"]}
 

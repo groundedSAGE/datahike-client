@@ -23,7 +23,7 @@
    (r/invoke client {:uri "/databases"
                      :method :get})))
 
-(defn transact [conn arg-map]
+(defn transact [^Connection conn arg-map]
   {:pre [(instance? Connection conn)
          (map? arg-map)]}
   (r/invoke (.client conn)
@@ -37,7 +37,7 @@
    (pull conn selector eid db-tx))
   ([conn selector eid]
    (pull conn selector eid nil))
-  ([conn selector eid db-tx]
+  ([^Connection conn selector eid db-tx]
    {:pre [(instance? Connection conn)
           (vector? selector)
           (int? eid)
@@ -57,7 +57,7 @@
    (pull-many conn selector eids db-tx))
   ([conn selector eids]
    (pull-many conn selector eids))
-  ([conn selector eids db-tx]
+  ([^Connection conn selector eids db-tx]
    {:pre [(instance? Connection conn)
           (vector? selector)
           (vector? eids)
@@ -73,7 +73,7 @@
                                 {"db-tx" db-tx}))})))
 
 (defn q
-  ([conn {:keys [query args limit offset db-tx]}]
+  ([^Connection conn {:keys [query args limit offset db-tx]}]
    (r/invoke (.client conn)
              {:uri "/q"
               :method :post
@@ -99,7 +99,7 @@
 (defn datoms
   ([conn index components]
    (datoms conn index components nil))
-  ([conn index components db-tx]
+  ([^Connection conn index components db-tx]
    (r/invoke (.client conn)
              {:uri "/datoms"
               :method :post
@@ -113,7 +113,7 @@
 (defn seek-datoms
   ([conn index components]
    (seek-datoms conn index components nil))
-  ([conn index components db-tx]
+  ([^Connection conn index components db-tx]
    (r/invoke (.client conn)
              {:uri "/seek-datoms"
               :method :post
@@ -127,7 +127,7 @@
 (defn entity
   ([conn eid]
    (entity conn eid nil))
-  ([conn eid db-tx]
+  ([^Connection conn eid db-tx]
    (r/invoke (.client conn)
              {:uri "/entity"
               :method :post
@@ -136,7 +136,7 @@
                               (when db-tx
                                 {"db-tx" db-tx}))})))
 
-(defn db [conn]
+(defn db [^Connection conn]
   {:pre [(instance? Connection conn)]}
   (r/invoke (.client conn)
             {:uri "/db"

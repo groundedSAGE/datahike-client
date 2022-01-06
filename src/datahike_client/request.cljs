@@ -1,6 +1,8 @@
 (ns datahike-client.request
   (:require [ajax.core :as http])
-  (:import [datahike-client.core Client]))
+  #_(:import [datahike-client.core Client]))
+
+(deftype Client [endpoint token])
 
 (defn invoke [client {:keys [uri method params headers timeout]}]
   {:pre [(instance? Client client)]}

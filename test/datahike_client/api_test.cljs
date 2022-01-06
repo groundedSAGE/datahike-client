@@ -1,5 +1,5 @@
 (ns datahike-client.api-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [use-fixtures deftest testing is]]
             [datahike-client.api :as sut]))
 
 (defonce config {:timeout 300
@@ -11,7 +11,7 @@
 (def connection (sut/connect client (:db-name config)))
 
 (defn init-db [f]
-  (Thread/sleep 3000)
+  #_(Thread/sleep 3000)
   (sut/transact connection {:db-name (:db-name config)
                             :tx-data [{:name  "Alice", :age   20}
                                       {:name  "Bob", :age   30}

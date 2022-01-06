@@ -323,11 +323,13 @@
     ([conn index & components]
      (type index))))
 
-(defmethod datoms clojure.lang.PersistentArrayMap
+(defmethod datoms #?(:clj clojure.lang.PersistentArrayMap
+                     :cljs :map) ; TODO: check if there is a better way to do this
   [conn {:keys [index components db-tx]}]
   (c/datoms conn index components db-tx))
 
-(defmethod datoms clojure.lang.Keyword
+(defmethod datoms #?(:cljs cljs.core/Keyword
+                     :clj clojure.lang.Keyword)
   [conn index & components]
   {:pre [(keyword? index)]}
   (if (nil? components)
@@ -372,11 +374,13 @@
     ([conn index & components]
      (type index))))
 
-(defmethod seek-datoms clojure.lang.PersistentArrayMap
+(defmethod seek-datoms #?(:clj clojure.lang.PersistentArrayMap
+                          :cljs :map) ; TODO: check if there is a better way to do this
   [conn {:keys [index components db-tx]}]
   (c/seek-datoms conn index components db-tx))
 
-(defmethod seek-datoms clojure.lang.Keyword
+(defmethod seek-datoms #?(:cljs cljs.core/Keyword
+                          :clj clojure.lang.Keyword)
   ([conn index & components]
    {:pre [(keyword? index)]}
    (if (or (empty? components)
